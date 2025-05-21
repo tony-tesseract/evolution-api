@@ -5,14 +5,14 @@
   "main": "./dist/main.js",
   "type": "commonjs",
   "scripts": {
-    "build": "tsup src/main.ts --out-dir dist --format cjs --target node18 --dts",
+    "build": "tsup src/main.ts --out-dir dist --format cjs --target node18 --clean",
     "start": "node dist/main.js",
-    "start:dev": "tsnd -r tsconfig-paths/register --files --transpile-only ./src/main.ts",
+    "start:dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/main.ts",
     "lint": "eslint --fix --ext .ts src",
     "lint:check": "eslint --ext .ts src",
-    "test": "tsnd -r tsconfig-paths/register --files --transpile-only --respawn --ignore-watch node_modules ./test/all.test.ts",
-    "db:generate": "npx prisma generate --schema ./prisma/DATABASE_PROVIDER-schema.prisma",
-    "db:deploy": "npx prisma migrate deploy --schema ./prisma/DATABASE_PROVIDER-schema.prisma"
+    "test": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register test/all.test.ts",
+    "db:generate": "node runWithProvider.js \"npx prisma generate --schema ./prisma/DATABASE_PROVIDER-schema.prisma\"",
+    "db:deploy": "node runWithProvider.js \"npx prisma migrate deploy --schema ./prisma/DATABASE_PROVIDER-schema.prisma\""
   },
   "repository": {
     "type": "git",
