@@ -1,23 +1,18 @@
 {
   "name": "evolution-api",
   "version": "2.2.3",
-  "description": "Rest api for communication with WhatsApp",
+  "description": "Rest API for communication with WhatsApp",
   "main": "./dist/main.js",
   "type": "commonjs",
   "scripts": {
-    "build": "tsc --noEmit && tsup",
-    "start": "tsnd -r tsconfig-paths/register --files --transpile-only ./src/main.ts",
-    "start:prod": "node dist/main",
-    "dev:server": "tsnd -r tsconfig-paths/register --files --transpile-only --respawn --ignore-watch node_modules ./src/main.ts",
-    "test": "tsnd -r tsconfig-paths/register --files --transpile-only --respawn --ignore-watch node_modules ./test/all.test.ts",
+    "build": "tsup src/main.ts --out-dir dist --format cjs --target node18 --dts",
+    "start": "node dist/main.js",
+    "start:dev": "tsnd -r tsconfig-paths/register --files --transpile-only ./src/main.ts",
     "lint": "eslint --fix --ext .ts src",
     "lint:check": "eslint --ext .ts src",
-    "db:generate": "node runWithProvider.js \"npx prisma generate --schema ./prisma/DATABASE_PROVIDER-schema.prisma\"",
-    "db:deploy": "node runWithProvider.js \"rm -rf ./prisma/migrations && cp -r ./prisma/DATABASE_PROVIDER-migrations ./prisma/migrations && npx prisma migrate deploy --schema ./prisma/DATABASE_PROVIDER-schema.prisma\"",
-    "db:deploy:win": "node runWithProvider.js \"xcopy /E /I prisma\\DATABASE_PROVIDER-migrations prisma\\migrations && npx prisma migrate deploy --schema prisma\\DATABASE_PROVIDER-schema.prisma\"",
-    "db:studio": "node runWithProvider.js \"npx prisma studio --schema ./prisma/DATABASE_PROVIDER-schema.prisma\"",
-    "db:migrate:dev": "node runWithProvider.js \"rm -rf ./prisma/migrations && cp -r ./prisma/DATABASE_PROVIDER-migrations ./prisma/migrations && npx prisma migrate dev --schema ./prisma/DATABASE_PROVIDER-schema.prisma && cp -r ./prisma/migrations/* ./prisma/DATABASE_PROVIDER-migrations\"",
-    "db:migrate:dev:win": "node runWithProvider.js \"xcopy /E /I prisma\\DATABASE_PROVIDER-migrations prisma\\migrations && npx prisma migrate dev --schema prisma\\DATABASE_PROVIDER-schema.prisma\""
+    "test": "tsnd -r tsconfig-paths/register --files --transpile-only --respawn --ignore-watch node_modules ./test/all.test.ts",
+    "db:generate": "npx prisma generate --schema ./prisma/DATABASE_PROVIDER-schema.prisma",
+    "db:deploy": "npx prisma migrate deploy --schema ./prisma/DATABASE_PROVIDER-schema.prisma"
   },
   "repository": {
     "type": "git",
@@ -26,28 +21,15 @@
   "keywords": [
     "chat",
     "communication",
-    "message",
-    "send message",
     "whatsapp",
-    "js-whatsapp",
-    "whatsapp-api",
-    "whatsapp-web",
-    "whatsapp",
-    "whatsapp-chat",
-    "whatsapp-group",
     "automation",
-    "multi-device",
-    "bot"
+    "api"
   ],
   "author": {
     "name": "Davidson Gomes",
     "email": "contato@atendai.com"
   },
   "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/EvolutionAPI/evolution-api/issues"
-  },
-  "homepage": "https://github.com/EvolutionAPI/evolution-api#readme",
   "dependencies": {
     "@adiwajshing/keyed-db": "^0.2.4",
     "@aws-sdk/client-sqs": "^3.723.0",
@@ -64,7 +46,6 @@
     "compression": "^1.7.5",
     "cors": "^2.8.5",
     "dayjs": "^1.11.13",
-    "dotenv": "^16.4.7",
     "eventemitter2": "^6.4.9",
     "express": "^4.21.2",
     "express-async-errors": "^3.1.1",
